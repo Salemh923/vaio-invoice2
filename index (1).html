@@ -113,5 +113,29 @@
       <p>سيتم شحن المنتجات بعد استلام الدفعة.</p>
     </section>
   </div>
-</body>
+</body><script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<div class="text-center my-6">
+  <button onclick="downloadPDF()" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded">
+    تحميل الفاتورة PDF
+  </button>
+</div>
+
+<script>
+  async function downloadPDF() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF('p', 'pt', 'a4');
+
+    const invoice = document.body; // يمكنك تغييره إلى div محدد إذا أردت
+
+    await doc.html(invoice, {
+      callback: function (doc) {
+        doc.save("فاتورة.pdf");
+      },
+      x: 10,
+      y: 10,
+      autoPaging: true
+    });
+  }
+</script>
 </html>
